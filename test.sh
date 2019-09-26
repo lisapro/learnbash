@@ -14,7 +14,15 @@ function_gcd ()
 		let 'r=a-b*q'
 		echo "r $r q $q"
 	done
-        echo "final r $r q $q" 
+	if [ $r -eq 0 ]
+	then
+		echo "Found gcd"
+	       	let 'gcd=b'
+		echo "gcd is $gcd"
+		return $gcd
+        else 
+        echo "not final r $r q $q" 
+	fi
 }
 echo "type two integers"
 read val1 val2
@@ -28,4 +36,8 @@ else
 fi
 
 function_gcd $init_a $init_b
-
+while [ $r -gt 0 ]
+do
+	echo "call function again with a $b, b $r"
+	function_gcd $b $r 
+done
